@@ -25,7 +25,7 @@ export const Account = () => {
       }else{
          http.get('/fetch-all-users').then(res=>{
             try{
-               console.log(res.data.data);
+              // console.log(res.data.data);
                setUser(res.data.data);
              }catch(e){
                console.log('error', e);        
@@ -35,10 +35,43 @@ export const Account = () => {
     
       }   
    }
-
    const changeAccess = () => {
-      return swal("Access is updated");
-      window.location.reload();
+      const accountSelection = document.querySelector("#accountSelection").value;
+      const accessSelection = document.querySelector("#accessSelection").value;
+      
+      // You can perform further actions with the selected values
+      console.log("Account Selection:", accountSelection);
+      console.log("Access Selection:", accessSelection);
+      if(accountSelection !== '' && accountSelection !== null && accessSelection !== '' && accountSelection !== null){
+         http.post('/user-access',{userid:accountSelection, access:accessSelection})
+         .then(res=>{
+            try{
+               if(res.status === 200){
+              // swal(res.data.message);
+               swal({ 
+                title: "Success!",
+                text: res.data.message,
+                type: "success"}).then(okay => {
+                if (okay) {
+                 window.location.reload();
+                }
+                });
+            }else{
+               swal("Something Wrong"); 
+            }
+            }catch(e){
+               swal("Something Wrong");    
+               }
+               }).catch((e) => {
+               swal("Something Wrong");
+            });
+        
+        // return swal("Access is updated"); 
+         //window.location.reload();
+      }else{
+         return swal("Please select Account and Access"); 
+      }
+   
    }   
 
 const [isOpen, setIsOpen] = React.useState(false);
@@ -62,68 +95,39 @@ return (
          </div>
          <div className="row justify-content-center mt-5">
             <div className="col-md-8 page-box">
-               <from>
-                  <div className="row">
-                     <div className="col-md-6">
-                        <div className="form-group mb-3 text-left m-l-r-15">
-                           <Multiselect
-                           placeholder="Account Selection"
-                           displayValue="key"
-                           groupBy="cat"
-                           onKeyPressFn={function noRefCheck(){}}
-                           onRemove={function noRefCheck(){}}
-                           onSearch={function noRefCheck(){}}
-                           onSelect={function noRefCheck(){}}
-                           options={[
-                           {
-                           cat: 'Please Select',
-                           key: 'Vikash Rai'
-                           },
-                           {
-                           cat: 'Please Select',
-                           key: 'Mean Machine'
-                           }
-                           ]}
-                           showCheckbox
-                           showArrow
-                           />
-                        </div>
-                     </div>
-                     <div className="col-md-6">
-                        <div className="form-group mb-3 text-left m-l-r-15">
-                           <Multiselect 
-                           placeholder="Access Selection"
-                           displayValue="key"
-                           groupBy="cat"
-                           onKeyPressFn={function noRefCheck(){}}
-                           onRemove={function noRefCheck(){}}
-                           onSearch={function noRefCheck(){}}
-                           onSelect={function noRefCheck(){}}
-                           options={[
-                           {
-                           cat: 'Please Select',
-                           key: 'Read'
-                           },
-                           {
-                           cat: 'Please Select',
-                           key: 'Write'
-                           },
-                           {
-                           cat: 'Please Select',
-                           key: 'Delete'
-                           }
-                           ]}
-                           showCheckbox
-                           showArrow
-                           />
-                        </div>
-                     </div>
-                     <div className="col-md-12 mt-4 text-center">
-                        <button type="button" onClick={changeAccess} className="btn-web">Change Access</button>
-                     </div>
-                  </div>
-               </from>
+         <form>
+         <div className="row">
+            <div className="col-md-6">
+               <div className="form-group mb-3 text-left m-l-r-15">
+               {/* <label htmlFor="accountSelection">Account Selection</label> */}
+               <select id="accountSelection" className="form-control">
+                  <option value="" selected disabled>Account Selection</option>
+                  {alluser.map((usersquiz, index) => (
+                     <option key={index} value={usersquiz.id}>
+                     {usersquiz.first_name + ' ' + usersquiz.last_name}
+                     </option>
+                  ))}
+               </select>
+               </div>
             </div>
+            <div className="col-md-6">
+               <div className="form-group mb-3 text-left m-l-r-15">
+               {/* <label htmlFor="accessSelection">Access Selection</label> */}
+               <select id="accessSelection" className="form-control">
+                  <option value="" selected disabled>Access Selection</option>
+                  <option value="Read">Read</option>
+                  <option value="Read,Write">Read,Write</option>
+                  <option value="Read,Write,Delete">Read,Write,Delete</option>
+               </select>
+               </div>
+            </div>
+            <div className="col-md-12 mt-4 text-center">
+               <button type="button" onClick={changeAccess} className="btn-web">Change Access</button>
+            </div>
+         </div>
+         </form>
+
+         </div>
          </div>
          <div className="row justify-content-center mt-2">
             <div className="col-md-5 page-box text-center">

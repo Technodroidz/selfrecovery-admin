@@ -44,6 +44,36 @@ export const QuizzesViews = () => {
 
  //  console.log(alluserquizzes);
 
+ const deleteQuiz = (quizId) => {
+   // alert(quizId);
+      if(sessioncheck == null){
+         swal("Please Login");  
+      }else{
+         http.post('/delete-quiz',{quiz_id:quizId})
+         .then(res=>{
+            try{
+               //console.log(res);
+               if(res.status === 200){
+              // swal(res.data.message);
+               swal({ 
+                title: "Success!",
+                text: res.data.message,
+                type: "success"}).then(okay => {
+                if (okay) {
+                 window.location.reload();
+                }
+                });
+            }else{
+               swal("Something Wrong"); 
+            }
+            }catch(e){
+               swal("Something Wrong");    
+               }
+               }).catch((e) => {
+               swal("Something Wrong");
+            });
+         }  
+   }
 
 const [isOpen, setIsOpen] = React.useState(false);
 const showModal = () => { setIsOpen(true);};
@@ -75,7 +105,7 @@ return (
                   {alluserquizzes.map((usersquiz,index)=>( 
                      <div className="Quizzes-q">
                         <h5>
-                           <img onClick={showModal1} src="../assets/img/quizzes-delete.png" alt="quizzes" className="img-fluid"/>
+                           <img onClick={() => { deleteQuiz(usersquiz.id); }} src="../assets/img/quizzes-delete.png" alt="quizzes" className="img-fluid"/>
                            <img src="../assets/img/quizzes-edit.png" alt="quizzes" className="img-fluid"/>
                            <img src="../assets/img/quizzes-img.png" alt="quizzes" className="img-fluid"/>
                            <spam><b>Quiz {++x}:</b>{usersquiz.quiz_name}.</spam>

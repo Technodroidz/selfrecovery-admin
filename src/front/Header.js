@@ -76,7 +76,7 @@ return (
 <header id="header" className="fixed-top">
    <div className="container d-flex align-items-center justify-content-between">
       <Link to="/" className="logo">
-      <img src="assets/img/logo.png" alt="logo" className="img-fluid"/>
+      <img src={window.location.origin + '/assets/img/logo.png'} alt="logo" className="img-fluid"/>
       </Link>
       <nav id="navbar" className="navbar">
          <ul>
