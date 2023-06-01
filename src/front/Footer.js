@@ -357,7 +357,7 @@ return (
                                              <h4 className="font-size-19">JS Snippet:</h4>
                                           </div>
                                           <div className="col-md-7 col-10">
-                                          <input type="text" value={"var link ="+ window.location.origin + "'/ShareQuizes/'"+allquiz.id} placeholder="<js> //code snippet embed to quiz </js>" className="form-control" readOnly/>
+                                          <input type="text" value={"var link ="+ window.location.origin + '/ShareQuizes/'+allquiz.id} placeholder="<js> //code snippet embed to quiz </js>" className="form-control" readOnly/>
                                           </div>
 
                                           <div className="col-md-1 col-2">

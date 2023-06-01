@@ -79,7 +79,7 @@ return (
                <div className="services-box">
                   <h2>Professional Services</h2>
                   <h4 onClick={showModal2}>API ACCESS </h4>
-                  <img onClick={showModal} src="assets/img/professional-services.png" alt="logo" className="img-fluid"/>
+                  <img onClick={showModal2} src="assets/img/professional-services.png" alt="logo" className="img-fluid"/>
                   <p className="mt-3">-We'll build your recommendation quiz.</p>
                   <p>-We'll implement it wherever you need.</p>
                   <p>-Custom solutions & consultations.</p>
