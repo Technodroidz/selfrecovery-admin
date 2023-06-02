@@ -56,6 +56,20 @@ export const Header = () => {
       });
   
    } 
+
+   const logout = () => {
+      ReactSession.setStoreType("localStorage");
+      ReactSession.remove("admin");
+      swal({ 
+         title: "Success!",
+         text: 'Logout Successful',
+         type: "success"}).then(okay => {
+         if (okay) {
+            navigate('/');
+         }
+         });
+   }
+
 const [isOpen, setIsOpen] = React.useState(false);
 const showModal = () => { setIsOpen(true);};
 const hideModal = () => { setIsOpen(false);};
@@ -116,13 +130,25 @@ return (
                         }else {
                             return (
                               <li>
-                               <Link className="nav-link scrollto">
-                               Welcome Admin</Link>
-                             </li>
+                                 <div className="dropdown">
+                                    <Link className="nav-link scrollto" role="button" id="adminDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                    &#127773; Welcome Admin
+                                    </Link>
+                                    <ul className="dropdown-menu" aria-labelledby="adminDropdown">
+                                          <li>
+                                             <Link className="dropdown-item" onClick={logout}>
+                                                Logout
+                                             </Link>
+                                          </li>
+                                    </ul>
+                                 </div>
+                              </li>
+                             
                             )
                         }
                 })()  
             }  
+            
             {/* <li>
                <Link className="getstarted scrollto" onClick={showModal}>
                Login</Link>

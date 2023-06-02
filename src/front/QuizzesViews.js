@@ -75,6 +75,11 @@ export const QuizzesViews = () => {
          }  
    }
 
+   const previewQuiz = (quizId) => {
+      const url = window.location.origin + '/ViewQuizes/'+quizId;
+      window.location.href = url;
+     }
+
 const [isOpen, setIsOpen] = React.useState(false);
 const showModal = () => { setIsOpen(true);};
 const hideModal = () => { setIsOpen(false);};
@@ -106,8 +111,8 @@ return (
                      <div className="Quizzes-q">
                         <h5>
                            <img onClick={() => { deleteQuiz(usersquiz.id); }} src="../assets/img/quizzes-delete.png" alt="quizzes" className="img-fluid"/>
-                           <img src="../assets/img/quizzes-edit.png" alt="quizzes" className="img-fluid"/>
-                           <img src="../assets/img/quizzes-img.png" alt="quizzes" className="img-fluid"/>
+                           {/* <img src="../assets/img/quizzes-edit.png" alt="quizzes" className="img-fluid"/> */}
+                           <img onClick={() => { previewQuiz(usersquiz.id); }} src="../assets/img/quizzes-img.png" alt="quizzes" className="img-fluid"/>
                            <spam><b>Quiz {++x}:</b>{usersquiz.quiz_name}.</spam>
                         </h5>
                      </div>

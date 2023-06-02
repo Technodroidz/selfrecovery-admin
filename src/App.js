@@ -11,6 +11,7 @@ import {Possibilities} from './front/Possibilities';
 import {Statistics} from './front/Statistics';
 import {Questionnaire} from './front/Questionnaire';
 import {QuizzesViews} from './front/QuizzesViews';
+import {ViewQuizes} from './front/ViewQuizes';
 
 export function App() {
 return (
@@ -26,6 +27,7 @@ return (
       <Route path="/Statistics" element={<Statistics />}></Route>
       <Route path="/Questionnaire" element={<Questionnaire />}></Route>
       <Route path="/QuizzesViews/:id" element={<QuizzesViews />}></Route>
+      <Route path="/ViewQuizes/:id" element={<ViewQuizes />}></Route>
    </Routes>
    <Footer />
 </Router>
